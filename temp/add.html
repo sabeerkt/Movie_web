@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+    <h2 style="color: #3498db;">Add a New Movie</h2>
+    <form method="post" enctype="multipart/form-data" style="margin-bottom: 20px;">
+      {% csrf_token %}
+      <label for="name" style="display: block; margin-bottom: 8px; color: #333;">Name:</label>
+      <input type="text" name="name" required style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px;"><br>
+
+      <label for="year" style="display: block; margin-bottom: 8px; color: #333;">Year:</label>
+      <input type="number" name="year" required style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px;"><br>
+
+      <label for="description" style="display: block; margin-bottom: 8px; color: #333;">Description:</label>
+      <textarea name="description" rows="4" required style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px;"></textarea><br>
+
+      <label for="img" style="display: block; margin-bottom: 8px; color: #333;">Image:</label>
+      <input type="file" name="img" accept="image/*" required style="margin-bottom: 16px;"><br>
+
+      <button type="submit" style="background-color: #3498db; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Add Movie</button>
+    </form>
+
+    <hr>
+
+    <h2 style="color: #3498db;">Movies</h2>
+    {% for movie in mov_list %}
+      <div style="margin-bottom: 20px;">
+        <img src="{{ movie.img.url }}" width="100" height="100" alt="{{ movie.name }}" style="border-radius: 8px;">
+        <a href="{% url 'movapp:detail' movie.id %}" style="text-decoration: none; color: #333; display: block; margin-top: 8px;">{{ movie.name }}</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock body %}
